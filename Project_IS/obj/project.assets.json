@@ -87,11 +87,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\edgar\\Desktop\\Project_IS\\Project_IS\\Project_IS.csproj",
+      "projectUniqueName": "C:\\Users\\edgar\\source\\repos\\Project_IS\\Project_IS\\Project_IS.csproj",
       "projectName": "Project_IS",
-      "projectPath": "C:\\Users\\edgar\\Desktop\\Project_IS\\Project_IS\\Project_IS.csproj",
+      "projectPath": "C:\\Users\\edgar\\source\\repos\\Project_IS\\Project_IS\\Project_IS.csproj",
       "packagesPath": "C:\\Users\\edgar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\edgar\\Desktop\\Project_IS\\Project_IS\\obj\\",
+      "outputPath": "C:\\Users\\edgar\\source\\repos\\Project_IS\\Project_IS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 
-using Project_IS.Models; // podkl papku Models, chtobi ispolzovat klass User
+using Project_IS.Models; 
 
 namespace Project_IS.Abstractions
     {

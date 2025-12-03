@@ -89,7 +89,7 @@ internal class TeacherRepository : ITeacherRepository
         string sql = @"INSERT INTO Teachers (UserId) VALUES (@uid)";
 
         using var cmd = new SQLiteCommand(sql, conn);
-        cmd.Parameters.AddWithValue("@uid", teacher.UserId); // ← важный момент
+        cmd.Parameters.AddWithValue("@uid", teacher.UserId); 
 
         cmd.ExecuteNonQuery();
     }
@@ -125,8 +125,8 @@ internal class TeacherRepository : ITeacherRepository
     {
         return new Teacher
         {
-            TeacherId = Convert.ToInt32(reader["Id"]),     // ← Главная фиксация!
-            UserId = Convert.ToInt32(reader["UserId"]),        // ← Связываем с Users.Id
+            TeacherId = Convert.ToInt32(reader["Id"]),     
+            UserId = Convert.ToInt32(reader["UserId"]),        
 
             FirstName = reader["FirstName"].ToString()!,
             LastName = reader["LastName"].ToString()!,

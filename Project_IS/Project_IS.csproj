@@ -15,6 +15,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Abstractions\IGroupSubjectRepository.cs" />
+    <Compile Remove="Abstractions\ITeacherSubjectRepository.cs" />
+    <Compile Remove="Data\GroupSubjectRepository.cs" />
+    <Compile Remove="Data\TeacherSubjectRepository.cs" />
+    <Compile Remove="Models\GroupSubject.cs" />
+    <Compile Remove="Models\TeacherSubject.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
   </ItemGroup>
 

@@ -15,12 +15,50 @@ namespace Project_IS.UI
             InitializeComponent();
         }
 
+
         private void LoadUsers()
         {
             var users = _adminService.GetUsers();
             DataGridUsers.DataSource = users;
-
             DataGridUsers.ClearSelection();
+        }
+        private void LoadSubjects()
+        {
+            DataGridSubjects.DataSource = _adminService.GetSubjects().ToList();
+            DataGridSubjects.ClearSelection();
+        }
+        
+        private void LoadStudentsForGroupAssignment()
+        {
+         
+            var studentUsers = _adminService.GetUsers()
+                .Where(u => u.Role == "student")
+                .ToList();
+
+            var students = new List<Student>();
+
+            foreach (var u in studentUsers)
+            {
+                var st = _adminService.GetStudentByUserId(u.UserId);
+                if (st != null)
+                    students.Add(st);
+            }
+
+            comboStudentsForGroup.DataSource = students;
+            comboStudentsForGroup.DisplayMember = "LastName";   
+            comboStudentsForGroup.ValueMember = "StudentId";
+            comboStudentsForGroup.SelectedIndex = -1;
+        }
+
+        
+        private void LoadGroupsForStudentAssignment()
+        {
+            var groups = _adminService.GetGroups().ToList();
+
+            comboGroupsForStudent.DataSource = groups;
+            comboGroupsForStudent.DisplayMember = "GroupName";
+            comboGroupsForStudent.ValueMember = "GroupId";
+            comboGroupsForStudent.SelectedIndex = -1;
         }
 
         public AdminForm(Admin admin) : this()
@@ -28,10 +66,14 @@ namespace Project_IS.UI
             _admin = admin;
             LoadUsers();
             LoadGroups();
+            LoadSubjects();
+
+            LoadStudentsForGroupAssignment();
+            LoadGroupsForStudentAssignment();
 
         }
 
-        // ------------------- ADD USER -------------------
+        //ADD USER 
         private void buttonAddUser_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtFirstName.Text) ||
@@ -63,7 +105,7 @@ namespace Project_IS.UI
             LoadUsers();
         }
 
-        // ------------------- UPDATE USER -------------------
+        // UPDATE USER
         private void buttonUpdateUser_Click(object sender, EventArgs e)
         {
             if (DataGridUsers.CurrentRow == null)
@@ -90,7 +132,7 @@ namespace Project_IS.UI
             LoadUsers();
         }
 
-        // ------------------- DELETE USER -------------------
+        // DELETE USER 
         private void buttonDeleteUser_Click(object sender, EventArgs e)
         {
             if (DataGridUsers.CurrentRow == null)
@@ -118,7 +160,7 @@ namespace Project_IS.UI
             form.ShowDialog();
         }
 
-        // ------------------- FILL EDIT FIELDS -------------------
+        // FILL EDIT 
         private void DataGridUsers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -215,6 +257,76 @@ namespace Project_IS.UI
             LoadGroups();
         }
 
+        private void txtSubjectName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAddSubject_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSubjectName.Text))
+            {
+                MessageBox.Show("Enter subject name.");
+                return;
+            }
+
+            var subject = new Subject
+            {
+                SubjectName = txtSubjectName.Text.Trim()
+            };
+
+            _adminService.AddSubject(subject);
+            MessageBox.Show("Subject added.");
+
+            LoadSubjects();
+        }
+
+        private void DataGridSubjects_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var row = DataGridSubjects.Rows[e.RowIndex];
+
+            txtEditSubjectName.Text = row.Cells["SubjectName"].Value?.ToString();
+        }
+
+        private void buttonDeleteSubject_Click(object sender, EventArgs e)
+        {
+            if (DataGridSubjects.CurrentRow == null)
+            {
+                MessageBox.Show("Select subject first.");
+                return;
+            }
+
+            int id = Convert.ToInt32(DataGridSubjects.CurrentRow.Cells["Id"].Value);
+
+            if (MessageBox.Show("Delete subject?", "Confirm", MessageBoxButtons.YesNo)
+                == DialogResult.No)
+                return;
+
+            _adminService.DeleteSubject(id);
+            MessageBox.Show("Subject deleted.");
+            LoadSubjects();
+        }
+
+        private void buttonAssignStudentToGroup_Click(object sender, EventArgs e)
+        {
+            if (comboStudentsForGroup.SelectedValue == null ||
+       comboGroupsForStudent.SelectedValue == null)
+            {
+                MessageBox.Show("Select student and group first.");
+                return;
+            }
+
+            int studentId = (int)comboStudentsForGroup.SelectedValue;
+            int groupId = (int)comboGroupsForStudent.SelectedValue;
+
+            _adminService.AssignStudentToGroup(studentId, groupId);
+
+            MessageBox.Show("Student assigned to group!");
+
+            
+        }
     }
 
 

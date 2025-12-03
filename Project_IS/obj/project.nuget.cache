@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DV6UPMYRXiA=",
+  "dgSpecHash": "oRLUgoKJwpM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\edgar\\Desktop\\Project_IS\\Project_IS\\Project_IS.csproj",
+  "projectFilePath": "C:\\Users\\edgar\\source\\repos\\Project_IS\\Project_IS\\Project_IS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\edgar\\.nuget\\packages\\stub.system.data.sqlite.core.netstandard\\1.0.119\\stub.system.data.sqlite.core.netstandard.1.0.119.nupkg.sha512",
     "C:\\Users\\edgar\\.nuget\\packages\\system.data.sqlite.core\\1.0.119\\system.data.sqlite.core.1.0.119.nupkg.sha512"

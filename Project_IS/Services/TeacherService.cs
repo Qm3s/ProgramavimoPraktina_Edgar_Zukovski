@@ -11,8 +11,6 @@ namespace Project_IS.Services
         private readonly IGroupRepository _groupRepo;
         private readonly IStudentRepository _studentRepo;
         private readonly IGradeRepository _gradeRepo;
-        private readonly IGroupSubjectRepository _groupSubjectRepo;
-        private readonly ITeacherSubjectRepository _teacherSubjectRepo;
 
         public TeacherService()
         {
@@ -22,41 +20,29 @@ namespace Project_IS.Services
             _groupRepo = new GroupRepository(conn);
             _studentRepo = new StudentRepository(conn);
             _gradeRepo = new GradeRepository(conn);
-            _groupSubjectRepo = new GroupSubjectRepository(conn);
-            _teacherSubjectRepo = new TeacherSubjectRepository(conn);
         }
 
-        // 1. Предметы, которые ведет учитель
-        public IEnumerable<Subject> GetSubjectsForTeacher(int teacherId)
+       
+        public IEnumerable<Group> GetAllGroups()
         {
-            var subjectIds = _teacherSubjectRepo.GetSubjectsByTeacher(teacherId);
-
-            return subjectIds
-                .Select(id => _subjectRepo.GetById(id))
-                .Where(s => s != null)
-                .ToList();
+            return _groupRepo.GetAll().ToList();
         }
 
-        // 2. Группы, которые изучают предмет
-        public IEnumerable<Group> GetGroupsForSubject(int subjectId)
-        {
-            var groupIds = _groupSubjectRepo.GetGroupsBySubject(subjectId);
-
-            return groupIds
-                .Select(id => _groupRepo.GetById(id))
-                .Where(g => g != null)
-                .ToList();
-        }
-
-        // 3. Список студентов в группе
-        public IEnumerable<Student> GetStudentsInGroup(int groupId)
+        
+        public IEnumerable<Student> GetStudentsByGroup(int groupId)
         {
             return _studentRepo.GetAll()
                 .Where(s => s.GroupId == groupId)
                 .ToList();
         }
 
-        // 4. Добавить оценку
+        
+        public IEnumerable<Subject> GetAllSubjects()
+        {
+            return _subjectRepo.GetAll().ToList();
+        }
+
+       
         public void AddGrade(int studentId, int subjectId, int value)
         {
             Grade grade = new Grade
@@ -69,7 +55,7 @@ namespace Project_IS.Services
             _gradeRepo.Add(grade);
         }
 
-        // 5. Оценки студента по предмету
+        
         public IEnumerable<Grade> GetGrades(int studentId, int subjectId)
         {
             return _gradeRepo.GetByStudentId(studentId)

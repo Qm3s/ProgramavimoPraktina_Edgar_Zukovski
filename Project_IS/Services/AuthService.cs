@@ -67,7 +67,7 @@ namespace Project_IS.Services
                     return new Student
                     {
                         UserId = baseUser.UserId,
-                        StudentId = student.StudentId,       // ✅ НАСТОЯЩИЙ StudentId
+                        StudentId = student.StudentId,      
                         GroupId = student.GroupId,
                         FirstName = baseUser.FirstName,
                         LastName = baseUser.LastName,

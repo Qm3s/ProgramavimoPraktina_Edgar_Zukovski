@@ -6,7 +6,7 @@ namespace Project_IS.Models
 {
     public class Teacher : User
     {
-        public int TeacherId { get; set; }   // Id из таблицы Teachers 
+        public int TeacherId { get; set; }   
 
         //public int UserId { get; set; }
 

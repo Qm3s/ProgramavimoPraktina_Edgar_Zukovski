@@ -19,13 +19,13 @@ namespace Project_IS.Services
             _subjectRepo = new SubjectRepository(DatabaseConfig.ConnectionString);
         }
 
-        // Получаем студента по UserId после логина
+        
         public Student GetStudentByUserId(int userId)
         {
             return _studentRepo.GetByUserId(userId);
         }
 
-        // Предмет + список оценок по нему
+        
         public IEnumerable<(Subject Subject, List<int> Grades)> GetSubjectsAndGrades(int studentId) 
         {
             var grades = _gradeRepo.GetByStudentId(studentId);

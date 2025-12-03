@@ -51,7 +51,7 @@ internal class StudentRepository : IStudentRepository
         using var reader = cmd.ExecuteReader();
 
         if (!reader.Read())
-            return null!; // или можно выбросить ошибку
+            return null!; 
 
         return MapStudent(reader);
     }
@@ -99,15 +99,16 @@ internal class StudentRepository : IStudentRepository
         conn.Open();
 
         string sql = @"UPDATE Students 
-                       SET GroupId = @gid
-                       WHERE Id = @id";
+                   SET GroupId = @gid
+                   WHERE Id = @sid";
 
         using var cmd = new SQLiteCommand(sql, conn);
         cmd.Parameters.AddWithValue("@gid", student.GroupId);
-        cmd.Parameters.AddWithValue("@id", student.UserId);
+        cmd.Parameters.AddWithValue("@sid", student.StudentId);
 
         cmd.ExecuteNonQuery();
     }
+
 
     public void Delete(int id)
     {
@@ -126,7 +127,7 @@ internal class StudentRepository : IStudentRepository
     {
         return new Student
         {
-            StudentId = Convert.ToInt32(reader["Id"]),  // ВАЖНО!!!
+            StudentId = Convert.ToInt32(reader["Id"]), 
             UserId = Convert.ToInt32(reader["UserId"]),
             GroupId = reader["GroupId"] == DBNull.Value ? null : (int?)Convert.ToInt32(reader["GroupId"]),
 

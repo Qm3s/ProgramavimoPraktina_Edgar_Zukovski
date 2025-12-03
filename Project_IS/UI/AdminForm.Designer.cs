@@ -45,7 +45,6 @@
             EditUser = new Label();
             DataGridGroups = new DataGridView();
             labelGroupsTitle = new Label();
-            labelGroupName = new Label();
             txtGroupName = new TextBox();
             buttonAddGroup = new Button();
             buttonUpdateGroup = new Button();
@@ -59,8 +58,16 @@
             labelEditSubjectName = new Label();
             txtEditSubjectName = new TextBox();
             buttonAddSubject = new Button();
-            buttonUpdateSubject = new Button();
             buttonDeleteSubject = new Button();
+            labelStudentGroupTitle = new Label();
+            comboStudentsForGroup = new ComboBox();
+            labelGroupName = new Label();
+            labelStudentForGroup = new Label();
+            comboGroupsForStudent = new ComboBox();
+            labelGroupForStudent = new Label();
+            buttonAssignStudentToGroup = new Button();
+            label3 = new Label();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)DataGridUsers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DataGridGroups).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DataGridSubjects).BeginInit();
@@ -127,6 +134,7 @@
             // 
             // comboRole
             // 
+            comboRole.Items.AddRange(new object[] { "teacher", "student", "admin" });
             comboRole.Location = new Point(91, 175);
             comboRole.Name = "comboRole";
             comboRole.Size = new Size(100, 23);
@@ -141,6 +149,7 @@
             // 
             // txtPassword
             // 
+            txtPassword.ForeColor = SystemColors.WindowText;
             txtPassword.Location = new Point(92, 146);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(100, 23);
@@ -156,6 +165,7 @@
             // 
             // txtUsername
             // 
+            txtUsername.ForeColor = SystemColors.WindowText;
             txtUsername.Location = new Point(91, 117);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(100, 23);
@@ -267,6 +277,7 @@
             // 
             // comboEditRole
             // 
+            comboEditRole.Items.AddRange(new object[] { "student", "teacher", "admin" });
             comboEditRole.Location = new Point(748, 191);
             comboEditRole.Name = "comboEditRole";
             comboEditRole.Size = new Size(100, 23);
@@ -320,15 +331,6 @@
             labelGroupsTitle.Size = new Size(61, 21);
             labelGroupsTitle.TabIndex = 29;
             labelGroupsTitle.Text = "Groups";
-            // 
-            // labelGroupName
-            // 
-            labelGroupName.AutoSize = true;
-            labelGroupName.Location = new Point(10, 320);
-            labelGroupName.Name = "labelGroupName";
-            labelGroupName.Size = new Size(76, 15);
-            labelGroupName.TabIndex = 30;
-            labelGroupName.Text = "Group name:";
             // 
             // txtGroupName
             // 
@@ -390,6 +392,7 @@
             DataGridSubjects.Name = "DataGridSubjects";
             DataGridSubjects.Size = new Size(240, 150);
             DataGridSubjects.TabIndex = 37;
+            DataGridSubjects.CellContentClick += DataGridSubjects_CellContentClick;
             // 
             // labelSubjectName
             // 
@@ -406,6 +409,7 @@
             txtSubjectName.Name = "txtSubjectName";
             txtSubjectName.Size = new Size(100, 23);
             txtSubjectName.TabIndex = 39;
+            txtSubjectName.TextChanged += txtSubjectName_TextChanged;
             // 
             // label2
             // 
@@ -440,30 +444,115 @@
             buttonAddSubject.TabIndex = 43;
             buttonAddSubject.Text = "Add subject";
             buttonAddSubject.UseVisualStyleBackColor = true;
-            // 
-            // buttonUpdateSubject
-            // 
-            buttonUpdateSubject.Location = new Point(893, 349);
-            buttonUpdateSubject.Name = "buttonUpdateSubject";
-            buttonUpdateSubject.Size = new Size(75, 23);
-            buttonUpdateSubject.TabIndex = 44;
-            buttonUpdateSubject.Text = "Update subject";
-            buttonUpdateSubject.UseVisualStyleBackColor = true;
+            buttonAddSubject.Click += buttonAddSubject_Click;
             // 
             // buttonDeleteSubject
             // 
-            buttonDeleteSubject.Location = new Point(893, 378);
+            buttonDeleteSubject.Location = new Point(902, 349);
             buttonDeleteSubject.Name = "buttonDeleteSubject";
             buttonDeleteSubject.Size = new Size(75, 23);
             buttonDeleteSubject.TabIndex = 45;
             buttonDeleteSubject.Text = "Delete subject";
             buttonDeleteSubject.UseVisualStyleBackColor = true;
+            buttonDeleteSubject.Click += buttonDeleteSubject_Click;
+            // 
+            // labelStudentGroupTitle
+            // 
+            labelStudentGroupTitle.AutoSize = true;
+            labelStudentGroupTitle.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            labelStudentGroupTitle.Location = new Point(81, 542);
+            labelStudentGroupTitle.Name = "labelStudentGroupTitle";
+            labelStudentGroupTitle.Size = new Size(147, 25);
+            labelStudentGroupTitle.TabIndex = 46;
+            labelStudentGroupTitle.Text = "Student - Group";
+            // 
+            // comboStudentsForGroup
+            // 
+            comboStudentsForGroup.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboStudentsForGroup.FormattingEnabled = true;
+            comboStudentsForGroup.Location = new Point(107, 617);
+            comboStudentsForGroup.Name = "comboStudentsForGroup";
+            comboStudentsForGroup.Size = new Size(121, 23);
+            comboStudentsForGroup.TabIndex = 47;
+            // 
+            // labelGroupName
+            // 
+            labelGroupName.AutoSize = true;
+            labelGroupName.Location = new Point(10, 320);
+            labelGroupName.Name = "labelGroupName";
+            labelGroupName.Size = new Size(76, 15);
+            labelGroupName.TabIndex = 30;
+            labelGroupName.Text = "Group name:";
+            // 
+            // labelStudentForGroup
+            // 
+            labelStudentForGroup.AutoSize = true;
+            labelStudentForGroup.Location = new Point(50, 620);
+            labelStudentForGroup.Name = "labelStudentForGroup";
+            labelStudentForGroup.Size = new Size(51, 15);
+            labelStudentForGroup.TabIndex = 48;
+            labelStudentForGroup.Text = "Student:";
+            // 
+            // comboGroupsForStudent
+            // 
+            comboGroupsForStudent.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboGroupsForStudent.FormattingEnabled = true;
+            comboGroupsForStudent.Location = new Point(107, 646);
+            comboGroupsForStudent.Name = "comboGroupsForStudent";
+            comboGroupsForStudent.Size = new Size(121, 23);
+            comboGroupsForStudent.TabIndex = 49;
+            // 
+            // labelGroupForStudent
+            // 
+            labelGroupForStudent.AutoSize = true;
+            labelGroupForStudent.Location = new Point(58, 649);
+            labelGroupForStudent.Name = "labelGroupForStudent";
+            labelGroupForStudent.Size = new Size(43, 15);
+            labelGroupForStudent.TabIndex = 50;
+            labelGroupForStudent.Text = "Group:";
+            // 
+            // buttonAssignStudentToGroup
+            // 
+            buttonAssignStudentToGroup.Location = new Point(109, 675);
+            buttonAssignStudentToGroup.Name = "buttonAssignStudentToGroup";
+            buttonAssignStudentToGroup.Size = new Size(119, 23);
+            buttonAssignStudentToGroup.TabIndex = 51;
+            buttonAssignStudentToGroup.Text = "Assign to group";
+            buttonAssignStudentToGroup.UseVisualStyleBackColor = true;
+            buttonAssignStudentToGroup.Click += buttonAssignStudentToGroup_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label3.Location = new Point(27, 720);
+            label3.Name = "label3";
+            label3.Size = new Size(331, 20);
+            label3.TabIndex = 52;
+            label3.Text = "Studentas BUTINAI turi but priskirtas prie grupes.";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label4.Location = new Point(12, 583);
+            label4.Name = "label4";
+            label4.Size = new Size(319, 20);
+            label4.TabIndex = 53;
+            label4.Text = "Kad pamatyti gruope reikia perkraut programa";
             // 
             // AdminForm
             // 
-            ClientSize = new Size(1033, 662);
+            ClientSize = new Size(1033, 843);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(buttonAssignStudentToGroup);
+            Controls.Add(labelGroupForStudent);
+            Controls.Add(comboGroupsForStudent);
+            Controls.Add(labelStudentForGroup);
+            Controls.Add(comboStudentsForGroup);
+            Controls.Add(labelStudentGroupTitle);
             Controls.Add(buttonDeleteSubject);
-            Controls.Add(buttonUpdateSubject);
             Controls.Add(buttonAddSubject);
             Controls.Add(txtEditSubjectName);
             Controls.Add(labelEditSubjectName);
@@ -554,7 +643,6 @@
         private Label EditUser;
         private DataGridView DataGridGroups;
         private Label labelGroupsTitle;
-        private Label labelGroupName;
         private TextBox txtGroupName;
         private Button buttonAddGroup;
         private Button buttonUpdateGroup;
@@ -568,7 +656,15 @@
         private Label labelEditSubjectName;
         private TextBox txtEditSubjectName;
         private Button buttonAddSubject;
-        private Button buttonUpdateSubject;
         private Button buttonDeleteSubject;
+        private Label labelStudentGroupTitle;
+        private ComboBox comboStudentsForGroup;
+        private Label labelGroupName;
+        private Label labelStudentForGroup;
+        private ComboBox comboGroupsForStudent;
+        private Label labelGroupForStudent;
+        private Button buttonAssignStudentToGroup;
+        private Label label3;
+        private Label label4;
     }
 }

@@ -17,7 +17,7 @@ namespace Project_IS.UI
         public LoginForm()
         {
             InitializeComponent();
-            _authService = new AuthService(); // ВСЁ!
+            _authService = new AuthService();
         }
 
 
@@ -26,7 +26,7 @@ namespace Project_IS.UI
             string username = textUsername.Text;
             string password = textPassword.Text;
 
-            var user = _authService.Login(username, password); // čia mano PRISIJUNGTI migtukas, ir jis kviecia AUTHSERVICE funkcija 
+            var user = _authService.Login(username, password); 
 
             if (user == null)
             {
@@ -34,11 +34,11 @@ namespace Project_IS.UI
                 return;
             }
 
-            // Разные действия в зависимости от роли
+            
             if (user is Admin admin)
             {
                 MessageBox.Show($"Welcome, admin {admin.FirstName}!");
-                //тут можно открыть форму админа:
+               
                 var form = new AdminForm(admin);
                 form.Show();
                 this.Hide();
@@ -59,15 +59,12 @@ namespace Project_IS.UI
             }
             else
             {
-                // На всякий случай, если вдруг Role какая-то другая
+               
                 MessageBox.Show($"Welcome, {user.FirstName}!");
             }
         }
         
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

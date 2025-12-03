@@ -10,7 +10,7 @@ namespace Project_IS.UI
         private readonly Student _student = null!;
         private readonly StudentService _studentService = new StudentService();
 
-        // Пустой конструктор (нужен для дизайнера)
+        
         public StudentForm()
         {
             InitializeComponent();
@@ -25,22 +25,22 @@ namespace Project_IS.UI
 
         }
 
-        // Конструктор, который будет вызываться из LoginForm
+        
         public StudentForm(Student student) : this()
         {
             _student = student;
 
-            // Показываем имя
+            
             StudentName.Text = $"{student.FirstName} {student.LastName}";
 
-            // Загружаем таблицу
+          
             LoadData();
         }
 
         
         private void LoadData()
         {
-            var table = _studentService.GetGradesTable(_student.StudentId); // TABLICA STUDENTOV service
+            var table = _studentService.GetGradesTable(_student.StudentId); 
 
             dataGridView.Rows.Clear();
 

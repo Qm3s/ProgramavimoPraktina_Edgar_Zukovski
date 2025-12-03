@@ -6,11 +6,11 @@ namespace Project_IS.Abstractions
 {
     public interface ITeacherRepository
     {
-        IEnumerable<Teacher> GetAll();           // Все преподаватели
-        Teacher GetById(int id);                 // Преподаватель по Id
-        Teacher GetByUserId(int userId);         // Получить преподавателя по Id пользователя (UserId)
-        void Add(Teacher teacher);               // Добавить нового преподавателя
-        void Update(Teacher teacher);            // Обновить преподавателя
+        IEnumerable<Teacher> GetAll();        
+        Teacher GetById(int id);                 
+        Teacher GetByUserId(int userId);         
+        void Add(Teacher teacher);              
+        void Update(Teacher teacher);      
         void Delete(int id);
 
     }
